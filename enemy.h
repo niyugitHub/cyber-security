@@ -1,6 +1,6 @@
 #pragma once
 #include"Vec2.h"
-
+//a
 class Enemy
 {
 public:
