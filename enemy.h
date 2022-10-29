@@ -4,6 +4,11 @@
 class Enemy
 {
 public:
+	// 定数定義
+	// 敵グラフィックサイズ
+	static constexpr int kEnemyGraphicSize = 100;
+	
+public:
 	Enemy();
 	virtual ~Enemy();
 
@@ -22,5 +27,7 @@ public:
 
 private:
 	int m_hGraph;
+
 	Vec2 m_pos;
+	Vec2 m_vec;
 };

@@ -17,6 +17,8 @@ public:
 	void update();
 	void draw();
 
+	Vec2 setPos();
+
 private:
 	int m_hEnemy;
 	Vec2 m_pos;
