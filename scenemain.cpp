@@ -8,12 +8,17 @@ namespace
 
 	// enemyの画像サイズを取得
 	constexpr int kEnemyGraphSize = 100;
+
+	// enemyを一定時間ごとに出現させる
+	constexpr int  kEnemyFlame = 60;
 }
 
 Scenemain::Scenemain() :
 	m_Graph(kGraphNum,nullptr),
 	m_pos(),
-	m_hEnemy(-1)
+	m_hEnemy(-1),
+	m_waitFrame(0),
+	m_enemyNum(0)
 {
 	for (auto& pGraph : m_Graph)
 	{
@@ -80,10 +85,29 @@ void Scenemain::end()
 
 void Scenemain::update()
 {
-	for (auto& pGraph : m_Graph)
+	/*if (m_waitFrame < kEnemyFlame)
+		{
+			m_waitFrame++;
+			return;
+		}*/
+
+	for (int i = 0; i < kGraphNum; i++)
 	{
-		pGraph->update();
+		if (i <= m_enemyNum)
+		{
+			m_Graph[i]->update();
+		}
 	}
+		if (m_waitFrame < kEnemyFlame)
+		{
+			m_waitFrame++;
+			return;
+		}
+		if (m_waitFrame == kEnemyFlame)
+		{
+			m_waitFrame = 0;
+			m_enemyNum++;
+		}
 }
 
 void Scenemain::draw()
@@ -100,28 +124,28 @@ Vec2 Scenemain::setPos()
 	float RandAppearX = GetRand(Game::kScreenWidth);
 	float RandAppearY = GetRand(Game::kScreenHeight);
 
-	int a = GetRand(1);
-	int b = GetRand(1);
+	int IndexRandX = GetRand(1);
+	int IndexRandY = GetRand(1);
 
-	if (a == 1)
+	if (IndexRandX == 1)
 	{
-		if (b == 1)
+		if (IndexRandY == 1)
 		{
 			RandAppearX = -kEnemyGraphSize;
 		}
-		else if (b == 0)
+		else if (IndexRandY == 0)
 		{
 			RandAppearX = Game::kScreenWidth;
 		}
 	}
 
-	if (a == 0)
+	if (IndexRandX == 0)
 	{
-		if (b == 1)
+		if (IndexRandY == 1)
 		{
 			RandAppearY = -kEnemyGraphSize;
 		}
-		else if (b == 0)
+		else if (IndexRandY == 0)
 		{
 			RandAppearY = Game::kScreenHeight;
 		}

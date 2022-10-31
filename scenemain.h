@@ -21,6 +21,8 @@ public:
 
 private:
 	int m_hEnemy;
+	int m_waitFrame;
+	int m_enemyNum;
 	Vec2 m_pos;
 
 	std::vector<Enemy*> m_Graph;

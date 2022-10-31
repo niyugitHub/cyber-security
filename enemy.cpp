@@ -4,7 +4,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 2.0f;
+	constexpr float kSpeed = 3.0f;
 }
 
 Enemy::Enemy() :
