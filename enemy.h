@@ -24,10 +24,15 @@ public:
 	void update();
 	void draw();
 
+	void EnemyMove();
 
 private:
 	int m_hGraph;
 
 	Vec2 m_pos;
 	Vec2 m_vec;
+
+	// ê≥ãKâª
+	float m_NormalizeX;
+	float m_NormalizeY;
 };

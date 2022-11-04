@@ -26,6 +26,7 @@ public:
 	{
 		x += vec.x;
 		y += vec.y;
+		return* this;
 	}
 
 	// Vec2 = Vec2 + Vec2
