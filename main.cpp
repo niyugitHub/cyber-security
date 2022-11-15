@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "scenemain.h"
+#include "SceneManager.h"
 #include"game.h"
 
 // プログラムは WinMain から始まります
@@ -19,7 +19,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// ダブルバッファモード
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	Scenemain scene;
+	SceneManager scene;
 	scene.init();
 
 	while (ProcessMessage() == 0)

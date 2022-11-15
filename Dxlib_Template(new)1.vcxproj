@@ -153,13 +153,21 @@
   <ItemGroup>
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="scenemain.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="scenemain.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -26,8 +26,17 @@ public:
 
 	void EnemyMove();
 
+	// 存在確認
+	bool isExist() const { return m_isExist; }
+	void setExist(bool isExist) { m_isExist = isExist; }
+
+	bool isHitEnable(Vec2 pos);	// 有効かどうか
+
 private:
 	int m_hGraph;
+
+	// 存在するか
+	bool m_isExist;
 
 	Vec2 m_pos;
 	Vec2 m_vec;
@@ -35,4 +44,7 @@ private:
 	// 正規化
 	float m_NormalizeX;
 	float m_NormalizeY;
+
+	// 回転表示
+	float m_rot;
 };

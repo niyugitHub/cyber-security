@@ -1,4 +1,4 @@
-#include"scenemain.h"
+#include"SceneMain.h"
 #include "SceneTitle.h"
 #include"game.h"
 #include"Dxlib.h"
@@ -18,7 +18,6 @@ SceneMain::SceneMain() :
 	m_Graph(kGraphNum,nullptr),
 	m_pos(),
 	m_hEnemy(-1),
-	m_hMouse(-1),
 	m_waitFrame(0),
 	m_enemyNum(0)
 {
@@ -31,18 +30,14 @@ SceneMain::~SceneMain()
 {
 	for (auto& pGraph : m_Graph)
 	{
-		if (pGraph != nullptr)
-		{
-			delete pGraph;
-			pGraph = nullptr;
-		}
+		delete pGraph;
+		pGraph = nullptr;
 	}
 }
 
 void SceneMain::init()
 {
 	m_hEnemy = LoadGraph(kEnemyFilename);
-	m_hMouse = LoadGraph(kEnemyFilename);
 	
 	for (auto& pGraph : m_Graph)
 	{
@@ -96,41 +91,13 @@ SceneBase* SceneMain::update()
 			m_waitFrame++;
 			return;
 		}*/
-
-	
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
 	for (int i = 0; i < kGraphNum; i++)
 	{
-		if (m_Graph[i] != nullptr)
+		if (i <= m_enemyNum)
 		{
-			if (i <= m_enemyNum)
-			{
-				if (m_Graph[i]->isExist())
-				{
-					m_Graph[i]->update();
-				}
-
-				else if (!m_Graph[i]->isExist())
-				{
-					delete m_Graph[i];
-					m_Graph[i] = nullptr;
-				}
-			}
-		}
-	}
-
-	for (int i = 0; i < kGraphNum; i++)
-	{
-		if (m_Graph[i] == nullptr)
-		{
-			m_Graph[i] = new Enemy;
-
-			m_Graph[i]->setHandle(m_hEnemy);
-			m_Graph[i]->setExist(true);
-
-			Vec2 pos = setPos();
-			m_Graph[i]->setPos(pos);
+			m_Graph[i]->update();
 		}
 	}
 	if (m_waitFrame < kEnemyFlame)
@@ -152,20 +119,14 @@ SceneBase* SceneMain::update()
 	{
 		return (new SceneMain);
 	}
-	return this;
 }
 
 void SceneMain::draw()
 {
 	for (auto& pGraph : m_Graph)
 	{
-		if (pGraph->isExist())
-		{
-			pGraph->draw();
-		}
+		pGraph->draw();
 	}
-
-	DrawGraph(Mouse::getPos().x, Mouse::getPos().y, m_hMouse, true);
 }
 
 Vec2 SceneMain::setPos()
