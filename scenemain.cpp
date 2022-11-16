@@ -104,19 +104,17 @@ SceneBase* SceneMain::update()
 	{
 		if (m_Graph[i] != nullptr)
 		{
-			if (i <= m_enemyNum)
+			if (m_Graph[i]->isExist())
 			{
-				if (m_Graph[i]->isExist())
-				{
-					m_Graph[i]->update();
-				}
-
-				else if (!m_Graph[i]->isExist())
-				{
-					delete m_Graph[i];
-					m_Graph[i] = nullptr;
-				}
+				m_Graph[i]->update();
 			}
+
+			else if (!m_Graph[i]->isExist())
+			{
+				delete m_Graph[i];
+				m_Graph[i] = nullptr;
+			}
+			
 		}
 	}
 
@@ -141,7 +139,6 @@ SceneBase* SceneMain::update()
 	if (m_waitFrame == kEnemyFlame)
 	{
 		m_waitFrame = 0;
-		m_enemyNum++;
 	}
 
 	if (padState & PAD_INPUT_2)
