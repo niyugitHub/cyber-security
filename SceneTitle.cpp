@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "SceneTitle.h"
 #include "SceneMain.h"
+#include "SceneExplanation.h"
 #include"game.h"
 
 namespace
@@ -29,6 +30,13 @@ SceneBase* SceneTitle::update()
 		// Main‚ÉØ‚è‘Ö‚¦
 		return (new SceneMain);
 	
+	}
+
+	if (GetMouseInput() && MOUSE_INPUT_LEFT && HitString3())
+	{
+		// Main‚ÉØ‚è‘Ö‚¦
+		return (new SceneExplanation);
+
 	}
 	//if (padState & PAD_INPUT_1)
 	//{

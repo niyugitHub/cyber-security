@@ -1,16 +1,14 @@
 #pragma once
 #include "SceneBase.h"
 
-class SceneTitle : public SceneBase
+class SceneExplanation : public SceneBase
 {
 public:
-	SceneTitle()
+	SceneExplanation()
 	{
-		m_textPosY = 0;
-		m_textVecY = 0;
 		m_isEnd = false;
 	}
-	virtual ~SceneTitle() {}
+	virtual ~SceneExplanation() {}
 
 
 	virtual void init()override;
@@ -22,21 +20,28 @@ public:
 	virtual bool isEnd() { return m_isEnd; }
 
 	// マウスと文字が当たった時
-	bool HitString1();
+	bool HitStringNext();
 	bool HitString2();
 	bool HitString3();
+
+	// マウスを押した瞬間だけ機能を与える
+	void IsPressMouse();
 private:
+	// 画像番号
+	int m_handleNum;
 	// 画像ハンドル
-	int m_handle;
-	// テキスト表示位置変更
-	int m_textPosY;
-	int m_textVecY;
+	int m_handleCar;
+	int m_handle[5];
 
 	// テキストのサイズ
 	int m_textSize;
 
 	// カラーの変更
 	int m_RandColor;
+
+	bool m_IsPressMouse;		// マウスボタンが押された瞬間だけtrueになるフラグ
+	bool m_IsPressedMouse;	// マウスボタンが押されてフラグがtrueになったことがあるか
+	bool m_flag;
 
 	bool m_isEnd;
 };
