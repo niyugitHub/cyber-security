@@ -1,7 +1,7 @@
 #pragma once
 #include"Vec2.h"
 //a
-class Enemy
+class enemyEasy
 {
 public:
 	// 定数定義
@@ -9,8 +9,8 @@ public:
 	static constexpr int kEnemyGraphicSize = 100;
 	
 public:
-	Enemy();
-	virtual ~Enemy();
+	enemyEasy();
+	virtual ~enemyEasy();
 
 	void init();
 	void end();
@@ -44,7 +44,13 @@ private:
 	// 正規化
 	float m_NormalizeX;
 	float m_NormalizeY;
+	
+	int m_click;
 
 	// 回転表示
 	float m_rot;
+
+	bool m_IsPressMouse;		// マウスボタンが押された瞬間だけtrueになるフラグ
+	bool m_IsPressedMouse;	// マウスボタンが押されてフラグがtrueになったことがあるか
+
 };

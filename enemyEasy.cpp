@@ -1,4 +1,4 @@
-#include"enemy.h"
+#include"enemyEasy.h"
 #include"Dxlib.h"
 #include"game.h"
 #include"Mouse.h"
@@ -6,7 +6,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 3.0f;
+	constexpr float kSpeed = 2.5f;
 
 	// 中心座標を設定
 	constexpr int CentorX = static_cast<float>(Game::kScreenWidth / 2) - 50;
@@ -18,42 +18,72 @@ namespace
 	//Vec2 temp{ x + vec.x, y + vec.y };
 }
 
-Enemy::Enemy() :
+enemyEasy::enemyEasy() :
 	m_hGraph(-1),
 	m_isExist(true),
 	m_pos(),
 	m_vec(3,3),
 	m_NormalizeX(),
 	m_NormalizeY(),
-	m_rot()
+	m_click(),
+	m_rot(),
+	m_IsPressMouse(false),
+	m_IsPressedMouse(false)
 {
 }
-Enemy::~Enemy()
-{
-
-}
-
-void Enemy::init()
+enemyEasy::~enemyEasy()
 {
 
 }
 
-void Enemy::end()
+void enemyEasy::init()
+{
+
+}
+
+void enemyEasy::end()
 {
 	
 }
 
-void Enemy::update()
+void enemyEasy::update()
 {
 	Vec2 dir = Centor - m_pos;
 	Vec2 mousePos = Mouse::getPos();
 
+	// インプットした瞬間だけをとる
+	if(GetMouseInput() && MOUSE_INPUT_LEFT)
+	{
+		if (!m_IsPressedMouse)
+		{
+			m_IsPressMouse = true;
+		}
+	}
+	else
+	{
+		m_IsPressMouse = false;
+		m_IsPressedMouse = false;
+	}
+
+	if (m_IsPressedMouse)
+	{
+		m_IsPressMouse = false;
+	}
+
+	if (m_IsPressMouse)
+	{
+		m_IsPressedMouse = true;
+	}
+
 	// マウスカーソルがenemyに当たっているかつ左クリックしたら
-	if (GetMouseInput() & MOUSE_INPUT_LEFT && isHitEnable(mousePos))	
+	if (m_IsPressMouse && isHitEnable(mousePos))
 	{
 		m_isExist = false;
+
 		return;
 	}
+
+	
 
 	dir = dir.normalize();
 	dir *= kSpeed;
@@ -62,7 +92,7 @@ void Enemy::update()
 	m_rot += 0.1f;
 }
 
-void Enemy::draw()
+void enemyEasy::draw()
 {
 //	DrawGraph(static_cast<int>(m_pos.x),static_cast<int>(m_pos.y), m_hGraph, true);
 	int width = kEnemyGraphicSize;
@@ -75,7 +105,7 @@ void Enemy::draw()
 		m_hGraph, true, false);
 }
 
-void Enemy::EnemyMove()
+void enemyEasy::EnemyMove()
 {
 	float Centor_LengthX = (static_cast<float>(Game::kScreenWidth) / 2 - m_pos.x);
 	float Centor_LengthY = (static_cast<float>(Game::kScreenHeight) / 2 - m_pos.y);
@@ -89,7 +119,7 @@ void Enemy::EnemyMove()
 	m_NormalizeY = NormalizeY;
 }
 
-bool Enemy::isHitEnable(Vec2 pos)
+bool enemyEasy::isHitEnable(Vec2 pos)
 {
 	// m_pos	円の中心座標
 	// pos		マウスカーソルの位置

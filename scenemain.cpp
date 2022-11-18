@@ -24,7 +24,7 @@ SceneMain::SceneMain() :
 {
 	for (auto& pGraph : m_Graph)
 	{
-		pGraph = new Enemy;
+		pGraph = new enemyEasy;
 	}
 }
 SceneMain::~SceneMain()
@@ -104,15 +104,18 @@ SceneBase* SceneMain::update()
 	{
 		if (m_Graph[i] != nullptr)
 		{
-			if (m_Graph[i]->isExist())
+			if (m_enemyNum > i)
 			{
-				m_Graph[i]->update();
-			}
+				if (m_Graph[i]->isExist())
+				{
+					m_Graph[i]->update();
+				}
 
-			else if (!m_Graph[i]->isExist())
-			{
-				delete m_Graph[i];
-				m_Graph[i] = nullptr;
+				else if (!m_Graph[i]->isExist())
+				{
+					delete m_Graph[i];
+					m_Graph[i] = nullptr;
+				}
 			}
 			
 		}
@@ -120,9 +123,10 @@ SceneBase* SceneMain::update()
 
 	for (int i = 0; i < kGraphNum; i++)
 	{
+
 		if (m_Graph[i] == nullptr)
 		{
-			m_Graph[i] = new Enemy;
+			m_Graph[i] = new enemyEasy;
 
 			m_Graph[i]->setHandle(m_hEnemy);
 			m_Graph[i]->setExist(true);
@@ -139,6 +143,7 @@ SceneBase* SceneMain::update()
 	if (m_waitFrame == kEnemyFlame)
 	{
 		m_waitFrame = 0;
+		m_enemyNum++;
 	}
 
 	if (padState & PAD_INPUT_2)
