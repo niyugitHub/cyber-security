@@ -21,8 +21,9 @@ public:
 
 	// マウスと文字が当たった時
 	bool HitStringNext();
-	bool HitString2();
-	bool HitString3();
+	bool HitStringBack();
+	/*bool HitString2();
+	bool HitString3();*/
 
 	// マウスを押した瞬間だけ機能を与える
 	void IsPressMouse();

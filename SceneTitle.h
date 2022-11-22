@@ -36,7 +36,7 @@ private:
 	int m_textSize;
 
 	// ƒJƒ‰[‚Ì•ÏX
-	int m_RandColor;
+//	int m_RandColor;
 
 	bool m_isEnd;
 };

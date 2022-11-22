@@ -12,15 +12,19 @@ namespace
 
 	// enemy‚ğˆê’èŠÔ‚²‚Æ‚ÉoŒ»‚³‚¹‚é
 	constexpr int  kEnemyFlame = 50;
+
+	// I—¹ŠÔ
+	constexpr int kEndtimeFlame = 1800;
 }
 
 SceneMain::SceneMain() :
-	m_Graph(kGraphNum,nullptr),
+	m_Graph(kGraphNum, nullptr),
 	m_pos(),
 	m_hEnemy(-1),
 	m_hMouse(-1),
 	m_waitFrame(0),
-	m_enemyNum(0)
+	m_enemyNum(0),
+	m_Endtime(0)
 {
 	for (auto& pGraph : m_Graph)
 	{
@@ -96,15 +100,16 @@ SceneBase* SceneMain::update()
 			m_waitFrame++;
 			return;
 		}*/
-
+	m_Endtime++;
 	
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-	for (int i = 0; i < kGraphNum; i++)
+	if(m_Endtime < kEndtimeFlame)
 	{
-		if (m_Graph[i] != nullptr)
+
+		for (int i = 0; i < kGraphNum; i++)
 		{
-			if (m_enemyNum > i)
+			if (m_Graph[i] != nullptr)
 			{
 				if (m_Graph[i]->isExist())
 				{
@@ -116,35 +121,35 @@ SceneBase* SceneMain::update()
 					delete m_Graph[i];
 					m_Graph[i] = nullptr;
 				}
+
 			}
-			
 		}
-	}
 
-	for (int i = 0; i < kGraphNum; i++)
-	{
-
-		if (m_Graph[i] == nullptr)
+		for (int i = 0; i < kGraphNum; i++)
 		{
-			m_Graph[i] = new enemyEasy;
+			if (m_Graph[i] == nullptr)
+			{
+				m_Graph[i] = new enemyEasy;
 
-			m_Graph[i]->setHandle(m_hEnemy);
-			m_Graph[i]->setExist(true);
+				m_Graph[i]->setHandle(m_hEnemy);
+				m_Graph[i]->setExist(true);
 
-			Vec2 pos = setPos();
-			m_Graph[i]->setPos(pos);
+				Vec2 pos = setPos();
+				m_Graph[i]->setPos(pos);
+			}
+		}
+		if (m_waitFrame < kEnemyFlame)
+		{
+			m_waitFrame++;
+			//return;
+		}
+		if (m_waitFrame == kEnemyFlame)
+		{
+			m_waitFrame = 0;
+			m_enemyNum++;
 		}
 	}
-	if (m_waitFrame < kEnemyFlame)
-	{
-		m_waitFrame++;
-		//return;
-	}
-	if (m_waitFrame == kEnemyFlame)
-	{
-		m_waitFrame = 0;
-		m_enemyNum++;
-	}
+	
 
 	if (padState & PAD_INPUT_2)
 	{
@@ -168,6 +173,11 @@ void SceneMain::draw()
 	}
 
 	DrawGraph(Mouse::getPos().x, Mouse::getPos().y, m_hMouse, true);
+
+	if (m_Endtime > kEndtimeFlame)
+	{
+		DxLib_End();
+	}
 }
 
 Vec2 SceneMain::setPos()

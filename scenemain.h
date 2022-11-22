@@ -30,6 +30,9 @@ private:
 	int m_enemyNum;
 	Vec2 m_pos;
 
+	// I—¹‚Ü‚Å‚ÌŠÔ(ƒtƒŒ[ƒ€)
+	int m_Endtime;
+
 	//Vec2 Mouse::getPos();
 	std::vector<enemyEasy*> m_Graph;
 };

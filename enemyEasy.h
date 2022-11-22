@@ -53,4 +53,9 @@ private:
 	bool m_IsPressMouse;		// マウスボタンが押された瞬間だけtrueになるフラグ
 	bool m_IsPressedMouse;	// マウスボタンが押されてフラグがtrueになったことがあるか
 
+	int m_EnemyFlame;	// enemyの出現をランダムに
+
+	float m_ExtRate;
+	float m_Expansion;
+	int m_StopFlame;
 };

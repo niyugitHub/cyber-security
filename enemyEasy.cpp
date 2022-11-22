@@ -3,6 +3,7 @@
 #include"game.h"
 #include"Mouse.h"
 #include<math.h>
+#include <cassert>
 namespace
 {
 	// ìGÇÃÉXÉsÅ[ÉhÇê›íË
@@ -16,11 +17,14 @@ namespace
 	constexpr int kEnemySize = 100;
 	Vec2 Centor{ CentorX, CentorY };
 	//Vec2 temp{ x + vec.x, y + vec.y };
+
+	// ägëÂorèkè¨ÇÃÇ∆Ç´10fé~ÇﬂÇÈ
+	constexpr int kWaitFlame = 25;
 }
 
 enemyEasy::enemyEasy() :
 	m_hGraph(-1),
-	m_isExist(true),
+	m_isExist(false),
 	m_pos(),
 	m_vec(3,3),
 	m_NormalizeX(),
@@ -28,7 +32,13 @@ enemyEasy::enemyEasy() :
 	m_click(),
 	m_rot(),
 	m_IsPressMouse(false),
-	m_IsPressedMouse(false)
+	m_IsPressedMouse(false),
+	m_EnemyFlame(GetRand(1000) + 50),
+	m_ExtRate(1.0f),
+	// ägëÂó¶ÇÃïœâª
+	m_Expansion(0.01f),
+	// ägëÂorèkè¨ÇÃÇ∆Ç´10fé~ÇﬂÇÈ
+	m_StopFlame(50)
 {
 }
 enemyEasy::~enemyEasy()
@@ -38,7 +48,7 @@ enemyEasy::~enemyEasy()
 
 void enemyEasy::init()
 {
-
+//	m_EnemyFlame = GetRand(30) + 500;
 }
 
 void enemyEasy::end()
@@ -83,13 +93,21 @@ void enemyEasy::update()
 		return;
 	}
 
-	
+	//assert(m_EnemyFlame != 0);
 
-	dir = dir.normalize();
-	dir *= kSpeed;
+	if (m_EnemyFlame != 0)
+	{
+		m_EnemyFlame--;
+	}
 
-	m_pos += dir;
-	m_rot += 0.1f;
+	if (m_EnemyFlame == 0)
+	{
+		dir = dir.normalize();
+		dir *= kSpeed;
+
+		m_pos += dir;
+		m_rot += 0.1f;
+	}
 }
 
 void enemyEasy::draw()
@@ -100,9 +118,35 @@ void enemyEasy::draw()
 
 	GetGraphSize(m_hGraph, &width, &height);
 
+	
+
 	DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
-		1.0f, m_rot,
+		m_ExtRate, m_rot,
 		m_hGraph, true, false);
+
+	if (m_ExtRate < 0.85f)
+	{
+		m_ExtRate = 0.85f;
+		m_Expansion *= -1;
+		m_StopFlame = 0;
+	}
+
+	if (m_ExtRate > 1.15f)
+	{
+		m_ExtRate = 1.15f;
+		m_Expansion *= -1;
+		m_StopFlame = 0;
+	}
+
+	if (m_StopFlame <= kWaitFlame)
+	{
+		m_StopFlame++;
+	}
+
+	if (m_StopFlame >= kWaitFlame)
+	{
+		m_ExtRate -= m_Expansion;
+	}
 }
 
 void enemyEasy::EnemyMove()

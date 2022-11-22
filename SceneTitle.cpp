@@ -13,7 +13,7 @@ namespace
 
 void SceneTitle::init()
 {
-	m_RandColor = 0;
+//	m_RandColor = 0;
 	m_handle = LoadGraph("data/enemy.png");
 	m_isEnd = false;
 	m_textSize = 50;
@@ -36,7 +36,6 @@ SceneBase* SceneTitle::update()
 	{
 		// Mainに切り替え
 		return (new SceneExplanation);
-
 	}
 	//if (padState & PAD_INPUT_1)
 	//{
@@ -44,10 +43,10 @@ SceneBase* SceneTitle::update()
 	//	return (new SceneMain);
 	//}
 	
-	if (m_RandColor < 200)
-	{
-		m_RandColor++;
-	}
+	//if (m_RandColor < 200)
+	//{
+	//	m_RandColor++;
+	//}
 
 	//m_RandColor++;
 	return this;
@@ -56,9 +55,9 @@ SceneBase* SceneTitle::update()
 void SceneTitle::draw()
 {
 	SetFontSize(50);
-	DrawString(kStringDisplayX, kStringDisplayY - 200, "ウイルスバスターズ！", GetColor(0, m_RandColor, 0));
-	DrawString(kStringDisplayX, kStringDisplayY - 100, "ゲームスタート", GetColor(0, m_RandColor, 0));
-	DrawString(kStringDisplayX, kStringDisplayY , "あそびかた", GetColor(0, m_RandColor, 0));
+	DrawString(kStringDisplayX, kStringDisplayY - 200, "ウイルスバスターズ！", GetColor(0, 255, 0));
+	DrawString(kStringDisplayX, kStringDisplayY - 100, "ゲームスタート", GetColor(0, 255, 0));
+	DrawString(kStringDisplayX, kStringDisplayY , "あそびかた", GetColor(0, 255, 0));
 
 	/*if (Mouse::getPos().x > kStringDisplayX &&
 		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
@@ -89,10 +88,6 @@ void SceneTitle::draw()
 			DrawString(kStringDisplayX, kStringDisplayY, "あそびかた", GetColor(255, 255, 255));
 		}
 	}*/
-	if (HitString1())
-	{
-		DrawString(kStringDisplayX, kStringDisplayY - 200, "ウイルスバスターズ！", GetColor(255, 255, 255));
-	}
 	if (HitString2())
 	{
 		DrawString(kStringDisplayX, kStringDisplayY - 100, "ゲームスタート", GetColor(255, 255, 255));
