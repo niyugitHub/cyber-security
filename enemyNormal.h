@@ -1,16 +1,16 @@
 #pragma once
 #include"Vec2.h"
 
-class enemyEasy
+class enemyNormal
 {
 public:
 	// 定数定義
 	// 敵グラフィックサイズ
 	static constexpr int kEnemyGraphicSize = 100;
-	
+
 public:
-	enemyEasy();
-	virtual ~enemyEasy();
+	enemyNormal();
+	virtual ~enemyNormal();
 
 	void init();
 	void end();
@@ -19,9 +19,9 @@ public:
 
 	virtual void setHandle(int Graph) { m_hGraph = Graph; }
 
-//	virtual void getPos(Vec2 pos) { m_pos = pos; }
+	//	virtual void getPos(Vec2 pos) { m_pos = pos; }
 
-	virtual void update();
+	void update();
 	void draw();
 
 	// 存在確認
@@ -39,6 +39,10 @@ private:
 	Vec2 m_pos;
 	Vec2 m_vec;
 
+	// 正規化
+	float m_NormalizeX;
+	float m_NormalizeY;
+
 	int m_click;
 
 	// 回転表示
@@ -53,3 +57,4 @@ private:
 	float m_Expansion;
 	int m_StopFlame;
 };
+

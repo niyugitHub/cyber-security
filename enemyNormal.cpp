@@ -1,4 +1,4 @@
-#include"enemyEasy.h"
+#include "enemyNormal.h"
 #include"Dxlib.h"
 #include"game.h"
 #include"Mouse.h"
@@ -7,7 +7,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 2.5f;
+	constexpr float kSpeed = 5.0f;
 
 	// 中心座標を設定
 	constexpr int CentorX = static_cast<float>(Game::kScreenWidth / 2) - 50;
@@ -22,11 +22,13 @@ namespace
 	constexpr int kWaitFlame = 25;
 }
 
-enemyEasy::enemyEasy() :
+enemyNormal::enemyNormal() :
 	m_hGraph(-1),
 	m_isExist(false),
 	m_pos(),
-	m_vec(3,3),
+	m_vec(3, 3),
+	m_NormalizeX(),
+	m_NormalizeY(),
 	m_click(),
 	m_rot(),
 	m_IsPressMouse(false),
@@ -39,28 +41,28 @@ enemyEasy::enemyEasy() :
 	m_StopFlame(50)
 {
 }
-enemyEasy::~enemyEasy()
+enemyNormal::~enemyNormal()
 {
 
 }
 
-void enemyEasy::init()
+void enemyNormal::init()
 {
-//	m_EnemyFlame = GetRand(30) + 500;
+	//	m_EnemyFlame = GetRand(30) + 500;
 }
 
-void enemyEasy::end()
+void enemyNormal::end()
 {
-	
+
 }
 
-void enemyEasy::update()
+void enemyNormal::update()
 {
 	Vec2 dir = Centor - m_pos;
 	Vec2 mousePos = Mouse::getPos();
 
 	// インプットした瞬間だけをとる
-	if(GetMouseInput() && MOUSE_INPUT_LEFT)
+	if (GetMouseInput() && MOUSE_INPUT_LEFT)
 	{
 		if (!m_IsPressedMouse)
 		{
@@ -108,15 +110,15 @@ void enemyEasy::update()
 	}
 }
 
-void enemyEasy::draw()
+void enemyNormal::draw()
 {
-//	DrawGraph(static_cast<int>(m_pos.x),static_cast<int>(m_pos.y), m_hGraph, true);
+	//	DrawGraph(static_cast<int>(m_pos.x),static_cast<int>(m_pos.y), m_hGraph, true);
 	int width = kEnemyGraphicSize;
 	int height = kEnemyGraphicSize;
 
 	GetGraphSize(m_hGraph, &width, &height);
 
-	
+
 
 	DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
 		m_ExtRate, m_rot,
@@ -147,7 +149,7 @@ void enemyEasy::draw()
 	}
 }
 
-bool enemyEasy::isHitEnable(Vec2 pos)
+bool enemyNormal::isHitEnable(Vec2 pos)
 {
 	// m_pos	円の中心座標
 	// pos		マウスカーソルの位置

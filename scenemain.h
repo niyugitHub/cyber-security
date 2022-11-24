@@ -1,5 +1,5 @@
 #pragma once
-#include "enemyEasy.h"
+#include "enemyNormal.h"
 #include "SceneBase.h"
 #include "Mouse.h"
 
@@ -34,5 +34,5 @@ private:
 	int m_Endtime;
 
 	//Vec2 Mouse::getPos();
-	std::vector<enemyEasy*> m_Graph;
+	std::vector<enemyNormal*> m_Graph;
 };

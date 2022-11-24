@@ -98,7 +98,7 @@ void SceneTitle::draw()
 	}
 
 
-	DrawGraph(Mouse::getPos().x, Mouse::getPos().y, m_handle, true);
+	DrawGraph(static_cast<int>(Mouse::getPos().x), static_cast<int>(Mouse::getPos().y), m_handle, true);
 
 #if false
 	// randcolor‚Ì’l‚Ì•\Ž¦

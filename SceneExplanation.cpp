@@ -122,7 +122,7 @@ void SceneExplanation::draw()
 		DrawString(50, Game::kScreenHeight - 50, "ƒ^ƒCƒgƒ‹", GetColor(255, 255, 255));
 	}
 
-	DrawGraph(Mouse::getPos().x, Mouse::getPos().y, m_handleCar, true);
+	DrawGraph(static_cast<int>(Mouse::getPos().x), static_cast<int>(Mouse::getPos().y), m_handleCar, true);
 }
 
 bool SceneExplanation::HitStringNext()

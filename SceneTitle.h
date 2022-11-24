@@ -8,6 +8,8 @@ public:
 	{
 		m_textPosY = 0;
 		m_textVecY = 0;
+		m_handle = -1;
+		m_textSize = 0;
 		m_isEnd = false;
 	}
 	virtual ~SceneTitle() {}

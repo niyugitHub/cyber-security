@@ -4,7 +4,12 @@
 #include"Dxlib.h"
 namespace
 {
-	constexpr int kGraphNum = 30;
+	// 難易度ごとの敵の数を設定
+	constexpr int kGraphNumEasy = 30;
+	constexpr int kGraphNumNormal = 50;
+	//constexpr int kGraphNumEasy = 30;
+	//constexpr int kGraphNumEasy = 30;
+
 	const char* const kEnemyFilename = "data/enemy.png";
 
 	// enemyの画像サイズを取得
@@ -18,7 +23,7 @@ namespace
 }
 
 SceneMain::SceneMain() :
-	m_Graph(kGraphNum, nullptr),
+	m_Graph(kGraphNumEasy, nullptr),
 	m_pos(),
 	m_hEnemy(-1),
 	m_hMouse(-1),
@@ -28,7 +33,7 @@ SceneMain::SceneMain() :
 {
 	for (auto& pGraph : m_Graph)
 	{
-		pGraph = new enemyEasy;
+		pGraph = new enemyNormal;
 	}
 }
 SceneMain::~SceneMain()
@@ -107,7 +112,7 @@ SceneBase* SceneMain::update()
 	if(m_Endtime < kEndtimeFlame)
 	{
 
-		for (int i = 0; i < kGraphNum; i++)
+		for (int i = 0; i < kGraphNumEasy; i++)
 		{
 			if (m_Graph[i] != nullptr)
 			{
@@ -125,11 +130,11 @@ SceneBase* SceneMain::update()
 			}
 		}
 
-		for (int i = 0; i < kGraphNum; i++)
+		for (int i = 0; i < kGraphNumEasy; i++)
 		{
 			if (m_Graph[i] == nullptr)
 			{
-				m_Graph[i] = new enemyEasy;
+				m_Graph[i] = new enemyNormal;
 
 				m_Graph[i]->setHandle(m_hEnemy);
 				m_Graph[i]->setExist(true);

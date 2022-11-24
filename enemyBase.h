@@ -1,28 +1,17 @@
 #pragma once
-#include"Vec2.h"
-
-class enemyEasy
+#include "Vec2.h"
+class enemyBase
 {
-public:
-	// 定数定義
-	// 敵グラフィックサイズ
-	static constexpr int kEnemyGraphicSize = 100;
-	
-public:
-	enemyEasy();
-	virtual ~enemyEasy();
+	enemyBase() {}
+	virtual ~enemyBase() {}
 
-	void init();
-	void end();
 
-	virtual void setPos(Vec2 pos) { m_pos = pos; }
+	virtual void init() {}
+	virtual void end() {}
 
-	virtual void setHandle(int Graph) { m_hGraph = Graph; }
+	void setPos(Vec2 pos) { m_pos = pos; }
 
-//	virtual void getPos(Vec2 pos) { m_pos = pos; }
-
-	virtual void update();
-	void draw();
+	void setHandle(int Graph) { m_hGraph = Graph; }
 
 	// 存在確認
 	bool isExist() const { return m_isExist; }
@@ -30,7 +19,10 @@ public:
 
 	bool isHitEnable(Vec2 pos);	// 有効かどうか
 
-private:
+	virtual enemyBase* update() { return this; }
+	virtual void draw() {}
+
+protected:
 	int m_hGraph;
 
 	// 存在するか
@@ -53,3 +45,4 @@ private:
 	float m_Expansion;
 	int m_StopFlame;
 };
+

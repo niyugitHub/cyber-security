@@ -4,9 +4,16 @@
 class SceneExplanation : public SceneBase
 {
 public:
-	SceneExplanation()
+	SceneExplanation() : 
+		m_isEnd(false),
+		m_RandColor(0),
+		m_handleNum(0),
+		m_IsPressMouse(false),
+		m_IsPressedMouse(false),
+		m_flag(false),
+		m_textSize(0),
+		m_handleCar(-1)
 	{
-		m_isEnd = false;
 	}
 	virtual ~SceneExplanation() {}
 
