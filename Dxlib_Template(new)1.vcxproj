@@ -160,6 +160,7 @@
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneSelection.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="vec2.cpp" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneSelection.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="vec2.h" />
   </ItemGroup>

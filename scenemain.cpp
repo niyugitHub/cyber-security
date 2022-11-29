@@ -6,10 +6,9 @@
 namespace
 {
 	// “ïˆÕ“x‚²‚Æ‚Ì“G‚Ì”‚ðÝ’è
-	constexpr int kGraphNumEasy = 30;
-	constexpr int kGraphNumNormal = 50;
-	//constexpr int kGraphNumEasy = 30;
-	//constexpr int kGraphNumEasy = 30;
+	constexpr int kGraphNum = 30;
+	//constexpr int kGraphNum = 30;
+	//constexpr int kGraphNum = 30;
 
 	const char* const kEnemyFilename = "data/enemy.png";
 
@@ -24,7 +23,7 @@ namespace
 }
 
 SceneMain::SceneMain() :
-	m_Graph(kGraphNumEasy, nullptr),
+	m_Graph(kGraphNum, nullptr),
 	m_pos(),
 	m_hEnemy(-1),
 	m_hMouse(-1),
@@ -56,37 +55,6 @@ void SceneMain::init()
 	
 	for (auto& pGraph : m_Graph)
 	{
-		//// enemy‚ÌoŒ»êŠ‚ðƒ‰ƒ“ƒ_ƒ€‚É
-		//float RandAppearX = GetRand(Game::kScreenWidth);
-		//float RandAppearY = GetRand(Game::kScreenHeight);
-
-		//int a = GetRand(1);
-		//int b = GetRand(1);
-
-		//if (a == 1)
-		//{
-		//	if (b == 1)
-		//	{
-		//		RandAppearX = -kEnemyGraphSize;
-		//	}
-		//	else if (b == 0)
-		//	{
-		//		RandAppearX = Game::kScreenWidth;
-		//	}
-		//}
-
-		//if (a == 0)
-		//{
-		//	if (b == 1)
-		//	{
-		//		RandAppearY = -kEnemyGraphSize;
-		//	}
-		//	else if (b == 0)
-		//	{
-		//		RandAppearY = Game::kScreenHeight;
-		//	}
-		//}
-
 		Vec2 pos = setPos();
 		pGraph->init();
 		pGraph->setPos(pos);
@@ -113,7 +81,7 @@ SceneBase* SceneMain::update()
 	if(m_Endtime < kEndtimeFlame)
 	{
 
-		for (int i = 0; i < kGraphNumEasy; i++)
+		for (int i = 0; i < kGraphNum; i++)
 		{
 			if (m_Graph[i] != nullptr)
 			{
@@ -131,7 +99,7 @@ SceneBase* SceneMain::update()
 			}
 		}
 
-		for (int i = 0; i < kGraphNumEasy; i++)
+		for (int i = 0; i < kGraphNum; i++)
 		{
 			if (m_Graph[i] == nullptr)
 			{
@@ -144,16 +112,16 @@ SceneBase* SceneMain::update()
 				m_Graph[i]->setPos(pos);
 			}
 		}
-		if (m_waitFrame < kEnemyFlame)
-		{
-			m_waitFrame++;
-			//return;
-		}
-		if (m_waitFrame == kEnemyFlame)
-		{
-			m_waitFrame = 0;
-			m_enemyNum++;
-		}
+		//if (m_waitFrame < kEnemyFlame)
+		//{
+		//	m_waitFrame++;
+		//	//return;
+		//}
+		//if (m_waitFrame == kEnemyFlame)
+		//{
+		//	m_waitFrame = 0;
+		//	m_enemyNum++;
+		//}
 	}
 	
 

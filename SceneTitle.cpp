@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "SceneTitle.h"
 #include "SceneMain.h"
+#include "SceneSelection.h"
 #include "SceneExplanation.h"
 #include"game.h"
 
@@ -28,7 +29,7 @@ SceneBase* SceneTitle::update()
 	if (GetMouseInput() && MOUSE_INPUT_LEFT && HitString2())
 	{
 		// MainÇ…êÿÇËë÷Ç¶
-		return (new SceneMain);
+		return (new SceneSelection);
 	
 	}
 
