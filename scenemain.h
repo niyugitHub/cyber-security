@@ -1,9 +1,9 @@
 #pragma once
-#include "enemyNormal.h"
 #include "SceneBase.h"
 #include "Mouse.h"
 
 #include <vector>
+#include "enemyBase.h"
 
 class SceneMain : public SceneBase
 {
@@ -34,5 +34,5 @@ private:
 	int m_Endtime;
 
 	//Vec2 Mouse::getPos();
-	std::vector<enemyNormal*> m_Graph;
+	std::vector<enemyBase*> m_Graph;
 };

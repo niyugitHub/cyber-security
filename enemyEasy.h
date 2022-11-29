@@ -1,7 +1,9 @@
 #pragma once
-#include"Vec2.h"
+//#include"Vec2.h"
+#include "enemyBase.h"
+//class enemyBase;
 
-class enemyEasy
+class enemyEasy : public enemyBase
 {
 public:
 	// ’è”’è‹`
@@ -19,10 +21,10 @@ public:
 
 	virtual void setHandle(int Graph) { m_hGraph = Graph; }
 
-//	virtual void getPos(Vec2 pos) { m_pos = pos; }
+	virtual void getPos(Vec2 pos) { m_pos = pos; }
 
 	virtual void update();
-	void draw();
+	virtual void draw();
 
 	// ‘¶İŠm”F
 	bool isExist() const { return m_isExist; }

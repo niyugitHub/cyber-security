@@ -1,4 +1,5 @@
 #include"scenemain.h"
+#include"enemyEasy.h"
 #include "SceneTitle.h"
 #include"game.h"
 #include"Dxlib.h"
@@ -33,7 +34,7 @@ SceneMain::SceneMain() :
 {
 	for (auto& pGraph : m_Graph)
 	{
-		pGraph = new enemyNormal;
+		pGraph = new enemyEasy;
 	}
 }
 SceneMain::~SceneMain()
@@ -134,7 +135,7 @@ SceneBase* SceneMain::update()
 		{
 			if (m_Graph[i] == nullptr)
 			{
-				m_Graph[i] = new enemyNormal;
+				m_Graph[i] = new enemyEasy;
 
 				m_Graph[i]->setHandle(m_hEnemy);
 				m_Graph[i]->setExist(true);
