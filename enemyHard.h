@@ -2,16 +2,17 @@
 #include"Vec2.h"
 #include "enemyBase.h"
 
-class enemyNormal : public enemyBase
+class enemyHard : public enemyBase
 {
+	
 public:
 	// 定数定義
 	// 敵グラフィックサイズ
 	static constexpr int kEnemyGraphicSize = 100;
 
 public:
-	enemyNormal();
-	virtual ~enemyNormal();
+	enemyHard();
+	virtual ~enemyHard();
 
 	void init();
 	void end();
@@ -40,10 +41,6 @@ private:
 	Vec2 m_pos;
 	Vec2 m_vec;
 
-	// 正規化
-	float m_NormalizeX;
-	float m_NormalizeY;
-
 	int m_click;
 
 	// 回転表示
@@ -57,5 +54,9 @@ private:
 	float m_ExtRate;
 	float m_Expansion;
 	int m_StopFlame;
+
+	int m_MoveTime;
+	int m_Flame;
+	float m_gravitySpeed;
 };
 

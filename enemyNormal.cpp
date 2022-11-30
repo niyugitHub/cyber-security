@@ -7,7 +7,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 5.0f;
+	constexpr float kSpeed = 4.0f;
 
 	// 中心座標を設定
 	constexpr int CentorX = static_cast<float>(Game::kScreenWidth / 2) - 50;
@@ -33,7 +33,7 @@ enemyNormal::enemyNormal() :
 	m_rot(),
 	m_IsPressMouse(false),
 	m_IsPressedMouse(false),
-	m_EnemyFlame(GetRand(1000) + 50),
+	m_EnemyFlame(GetRand(1200) + 50),
 	m_ExtRate(1.0f),
 	// 拡大率の変化
 	m_Expansion(0.01f),

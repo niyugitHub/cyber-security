@@ -6,8 +6,8 @@ class SceneSelection : public SceneBase
 public:
 	SceneSelection() :
 		m_handleCar(-1),
-		m_textSize(0),
-		m_SetLevel(0)
+		m_textSize(0)
+		//m_SetLevel()
 	{
 	}
 	virtual ~SceneSelection() {}
@@ -19,7 +19,8 @@ public:
 	virtual SceneBase* update()override;
 	virtual void draw()override;
 
-	void getLevel() { m_SetLevel; }
+	// 難易度を設定するための関数
+	int getLevel() {return m_SetLevel; }
 
 	// マウスと文字が当たった時
 	bool HitStringEasy();

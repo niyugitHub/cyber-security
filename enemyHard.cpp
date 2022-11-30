@@ -1,4 +1,6 @@
-#include"enemyEasy.h"
+#include "enemyHard.h"
+
+#include "enemyNormal.h"
 #include"Dxlib.h"
 #include"game.h"
 #include"Mouse.h"
@@ -7,7 +9,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 2.5f;
+	constexpr float kSpeed = 5.0f;
 
 	// 中心座標を設定
 	constexpr int CentorX = static_cast<float>(Game::kScreenWidth / 2) - 50;
@@ -20,47 +22,53 @@ namespace
 
 	// 拡大or縮小のとき10f止める
 	constexpr int kWaitFlame = 25;
+
+	constexpr float kMovewave = 0.5f;
 }
 
-enemyEasy::enemyEasy() :
+enemyHard::enemyHard() :
 	m_hGraph(-1),
 	m_isExist(false),
 	m_pos(),
-	m_vec(3,3),
+	m_vec(3, 3),
 	m_click(),
 	m_rot(),
 	m_IsPressMouse(false),
 	m_IsPressedMouse(false),
-	m_EnemyFlame(GetRand(1500) + 50),
+	m_EnemyFlame(GetRand(1000) + 50),
 	m_ExtRate(1.0f),
 	// 拡大率の変化
 	m_Expansion(0.01f),
 	// 拡大or縮小のとき10f止める
-	m_StopFlame(50)
+	m_StopFlame(50),
+	m_MoveTime(-10),
+	m_Flame(1),
+	m_gravitySpeed(0)
+
 {
 }
-enemyEasy::~enemyEasy()
+enemyHard::~enemyHard()
 {
 
 }
 
-void enemyEasy::init()
+void enemyHard::init()
 {
-//	m_EnemyFlame = GetRand(30) + 500;
+	//	m_EnemyFlame = GetRand(30) + 500;
 }
 
-void enemyEasy::end()
+void enemyHard::end()
 {
-	
+
 }
 
-void enemyEasy::update()
+void enemyHard::update()
 {
 	Vec2 dir = Centor - m_pos;
 	Vec2 mousePos = Mouse::getPos();
 
 	// インプットした瞬間だけをとる
-	if(GetMouseInput() && MOUSE_INPUT_LEFT)
+	if (GetMouseInput() && MOUSE_INPUT_LEFT)
 	{
 		if (!m_IsPressedMouse)
 		{
@@ -106,17 +114,46 @@ void enemyEasy::update()
 		m_pos += dir;
 		m_rot += 0.1f;
 	}
+	if (m_EnemyFlame == 0)
+	{
+		if (m_MoveTime >= 10)
+		{
+			m_MoveTime = 10;
+			m_Flame *= -1;
+		}
+
+		if (m_MoveTime <= -10)
+		{
+			m_MoveTime = -10;
+			m_Flame *= -1;
+		}
+
+		if (m_MoveTime > 0 && m_MoveTime <= 10)
+		{
+			m_gravitySpeed += kMovewave;
+			m_pos.x += m_gravitySpeed;
+			m_pos.y += m_gravitySpeed;
+		}
+
+		if (m_MoveTime < 0 && m_MoveTime >= -10)
+		{
+			m_gravitySpeed -= kMovewave;
+			m_pos.x += m_gravitySpeed;
+			m_pos.y += m_gravitySpeed;
+		}
+		m_MoveTime += m_Flame;
+	}
 }
 
-void enemyEasy::draw()
+void enemyHard::draw()
 {
-//	DrawGraph(static_cast<int>(m_pos.x),static_cast<int>(m_pos.y), m_hGraph, true);
+	//	DrawGraph(static_cast<int>(m_pos.x),static_cast<int>(m_pos.y), m_hGraph, true);
 	int width = kEnemyGraphicSize;
 	int height = kEnemyGraphicSize;
 
 	GetGraphSize(m_hGraph, &width, &height);
 
-	
+
 
 	DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
 		m_ExtRate, m_rot,
@@ -145,11 +182,9 @@ void enemyEasy::draw()
 	{
 		m_ExtRate -= m_Expansion;
 	}
-
-	//assert(m_hGraph < -1);
 }
 
-bool enemyEasy::isHitEnable(Vec2 pos)
+bool enemyHard::isHitEnable(Vec2 pos)
 {
 	// m_pos	円の中心座標
 	// pos		マウスカーソルの位置

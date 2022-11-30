@@ -5,6 +5,8 @@
 #include <vector>
 #include "enemyBase.h"
 
+#include "SceneSelection.h"
+
 class SceneMain : public SceneBase
 {
 public:
@@ -28,11 +30,20 @@ private:
 	int m_hMouse;
 	int m_waitFrame;
 	int m_enemyNum;
+
+	int m_hPlayer;
+	int m_hDeadPlayer;
+
 	Vec2 m_pos;
 
 	// 終了までの時間(フレーム)
 	int m_Endtime;
 
+	// 難易度設定
+	int m_Level;
+
 	//Vec2 Mouse::getPos();
 	std::vector<enemyBase*> m_Graph;
+
+	SceneSelection sceneSelection;
 };
