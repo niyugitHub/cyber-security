@@ -6,7 +6,6 @@
 #include "enemyBase.h"
 
 #include "SceneSelection.h"
-
 class SceneMain : public SceneBase
 {
 public:
@@ -18,15 +17,18 @@ public:
 	// èIóπèàóù
 	virtual void end();
 
-//	virtual void getPos(Vec2 pos) { m_pos = pos; }
-
 	virtual SceneBase* update();
 	virtual void draw();
+
+	void setLevel(int level) { m_Level = level; }
+
+
 
 	Vec2 setPos();
 
 private:
 	int m_hEnemy;
+	int m_hDeadEnemy;
 	int m_hMouse;
 	int m_waitFrame;
 	int m_enemyNum;
@@ -45,5 +47,5 @@ private:
 	//Vec2 Mouse::getPos();
 	std::vector<enemyBase*> m_Graph;
 
-	SceneSelection sceneSelection;
+	SceneSelection* scene;
 };

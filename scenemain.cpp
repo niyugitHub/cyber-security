@@ -5,7 +5,8 @@
 #include "SceneTitle.h"
 #include "SceneSelection.h"
 #include"game.h"
-#include"Dxlib.h"
+#include<cassert>
+#include<Dxlib.h>
 
 namespace
 {
@@ -14,11 +15,13 @@ namespace
 
 	// 画像をnamespaceに入れる
 	const char* const kEnemyFilename = "data/enemy.png";
+	const char* const kDeadEnemyFilename = "data/deadEnemy.png";
+
 	const char* const kSumahoFilename = "data/sumaho1.png";
 	const char* const kDeadsumahoFilename = "data/sumaho3.png";
 
 	// enemyの画像サイズを取得
-	constexpr int kEnemyGraphSize = 200;
+	constexpr int kEnemyGraphSize = 150;
 
 	// enemyを一定時間ごとに出現させる
 	constexpr int  kEnemyFlame = 50;
@@ -33,30 +36,15 @@ SceneMain::SceneMain() :
 	m_hDeadPlayer(-1),
 	m_pos(),
 	m_hEnemy(-1),
+	m_hDeadEnemy(-1),
 	m_hMouse(-1),
 	m_waitFrame(0),
 	m_enemyNum(0),
 	m_Endtime(0),
-	m_Level(1)
+	m_Level(0)
 {
-//	m_Level = sceneSelection.getLevel();
-	for (auto& pGraph : m_Graph)
-	{
-		if (m_Level == 1)
-		{
-			pGraph = new enemyEasy;
-		}
 
-		else if (m_Level == 2)
-		{
-			pGraph = new enemyNormal;
-		}
-
-		else if (m_Level == 3)
-		{
-			pGraph = new enemyHard;
-		}
-	}
+	
 }
 SceneMain::~SceneMain()
 {
@@ -73,9 +61,31 @@ SceneMain::~SceneMain()
 void SceneMain::init()
 {
 	m_hEnemy = LoadGraph(kEnemyFilename);
+	m_hDeadEnemy = LoadGraph(kDeadEnemyFilename);
 	m_hMouse = LoadGraph(kEnemyFilename);
 	m_hPlayer = LoadGraph(kSumahoFilename);
 	m_hDeadPlayer = LoadGraph(kDeadsumahoFilename);
+
+	for (auto& pGraph : m_Graph)
+	{
+		if (m_Level == 1)
+		{
+			pGraph = new enemyEasy;
+		}
+
+		else if (m_Level == 2)
+		{
+			pGraph = new enemyNormal;
+		}
+
+		else if (m_Level == 3)
+		{
+			pGraph = new enemyHard;
+		}
+
+		assert(m_Level != 0);
+
+	}
 	
 	
 	for (auto& pGraph : m_Graph)
@@ -84,7 +94,10 @@ void SceneMain::init()
 		pGraph->init();
 		pGraph->setPos(pos);
 		pGraph->setHandle(m_hEnemy);
+		pGraph->setDeadHandle(m_hDeadEnemy);
 	}
+
+	
 }
 
 void SceneMain::end()
@@ -192,7 +205,7 @@ void SceneMain::draw()
 		}
 	}
 
-	DrawGraph(Game::kScreenWidth / 2 - 150, Game::kScreenHeight / 2 - 150, m_hPlayer, true);
+	DrawGraph(Game::kScreenWidth / 2 - 75, Game::kScreenHeight / 2 - 75, m_hPlayer, true);
 
 	DrawGraph(Mouse::getPos().x, Mouse::getPos().y, m_hMouse, true);
 
@@ -219,7 +232,7 @@ Vec2 SceneMain::setPos()
 		}
 		else if (IndexRandY == 0)
 		{
-			RandAppearX = Game::kScreenWidth;
+			RandAppearX = Game::kScreenWidth + kEnemyGraphSize;
 		}
 	}
 
@@ -231,7 +244,7 @@ Vec2 SceneMain::setPos()
 		}
 		else if (IndexRandY == 0)
 		{
-			RandAppearY = Game::kScreenHeight;
+			RandAppearY = Game::kScreenHeight + kEnemyGraphSize;
 		}
 	}
 

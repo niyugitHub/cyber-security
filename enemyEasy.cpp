@@ -24,9 +24,10 @@ namespace
 
 enemyEasy::enemyEasy() :
 	m_hGraph(-1),
+	m_hdeadGraph(-1),
 	m_isExist(false),
 	m_pos(),
-	m_vec(3,3),
+	m_vec(3, 3),
 	m_click(),
 	m_rot(),
 	m_IsPressMouse(false),
@@ -36,7 +37,8 @@ enemyEasy::enemyEasy() :
 	// ägëÂó¶ÇÃïœâª
 	m_Expansion(0.01f),
 	// ägëÂorèkè¨ÇÃÇ∆Ç´10fé~ÇﬂÇÈ
-	m_StopFlame(50)
+	m_StopFlame(50),
+	m_fadeValue(255)
 {
 }
 enemyEasy::~enemyEasy()
@@ -87,24 +89,25 @@ void enemyEasy::update()
 	if (m_IsPressMouse && isHitEnable(mousePos))
 	{
 		m_isExist = false;
-
-		return;
 	}
 
 	//assert(m_EnemyFlame != 0);
 
-	if (m_EnemyFlame != 0)
+	if (m_isExist)
 	{
-		m_EnemyFlame--;
-	}
+		if (m_EnemyFlame != 0)
+		{
+			m_EnemyFlame--;
+		}
 
-	if (m_EnemyFlame == 0)
-	{
-		dir = dir.normalize();
-		dir *= kSpeed;
+		if (m_EnemyFlame == 0)
+		{
+			dir = dir.normalize();
+			dir *= kSpeed;
 
-		m_pos += dir;
-		m_rot += 0.1f;
+			m_pos += dir;
+			m_rot += 0.1f;
+		}
 	}
 }
 
@@ -117,10 +120,20 @@ void enemyEasy::draw()
 	GetGraphSize(m_hGraph, &width, &height);
 
 	
-
-	DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
-		m_ExtRate, m_rot,
-		m_hGraph, true, false);
+	if (m_isExist)
+	{
+		DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
+			m_ExtRate, m_rot,
+			m_hGraph, true, false);
+	}
+	else
+	{
+		DrawGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
+			m_hdeadGraph, true);
+	//	DrawRotaGraph(320, 240, 0.3, 0.0, m_deadGraph, true);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeValue);
+		m_fadeValue--;
+	}
 
 	if (m_ExtRate < 0.85f)
 	{

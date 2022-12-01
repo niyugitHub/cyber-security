@@ -6,6 +6,8 @@ namespace
 	constexpr int kLogNum = 16;
 	// 入力ログ	0が最新の状態
 	int mouseLog[kLogNum];
+
+	constexpr int kMouseSize = 134;
 }
 
 namespace Mouse
@@ -32,7 +34,7 @@ namespace Mouse
 	// 現在のマウス位置取得
 	Vec2 getPos()
 	{
-		Vec2 mousePos{ 0,0 };
+		Vec2 mousePos{ kMouseSize / 2,kMouseSize / 2 };
 		int mouseX = 0;
 		int mouseY = 0;
 		if (GetMousePoint(&mouseX, &mouseY) == -1)

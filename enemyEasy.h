@@ -21,6 +21,8 @@ public:
 
 	virtual void setHandle(int Graph) { m_hGraph = Graph; }
 
+	virtual void setDeadHandle(int DeadGraph) { m_hdeadGraph = DeadGraph; }
+
 	virtual void getPos(Vec2 pos) { m_pos = pos; }
 
 	virtual void update();
@@ -34,6 +36,7 @@ public:
 
 private:
 	int m_hGraph;
+	int m_hdeadGraph;
 
 	// ë∂ç›Ç∑ÇÈÇ©
 	bool m_isExist;
@@ -54,4 +57,6 @@ private:
 	float m_ExtRate;
 	float m_Expansion;
 	int m_StopFlame;
+
+	int m_fadeValue;
 };

@@ -23,7 +23,8 @@ namespace
 	// Šg‘åork¬‚Ì‚Æ‚«10fŽ~‚ß‚é
 	constexpr int kWaitFlame = 25;
 
-	constexpr float kMovewave = 0.5f;
+	constexpr float kMovewave = 0.2f;
+	constexpr int kMovetime = 20;
 }
 
 enemyHard::enemyHard() :
@@ -35,13 +36,13 @@ enemyHard::enemyHard() :
 	m_rot(),
 	m_IsPressMouse(false),
 	m_IsPressedMouse(false),
-	m_EnemyFlame(GetRand(1000) + 50),
+	m_EnemyFlame(GetRand(1200) + 50),
 	m_ExtRate(1.0f),
 	// Šg‘å—¦‚Ì•Ï‰»
 	m_Expansion(0.01f),
 	// Šg‘åork¬‚Ì‚Æ‚«10fŽ~‚ß‚é
 	m_StopFlame(50),
-	m_MoveTime(-10),
+	m_MoveTime(-kMovetime),
 	m_Flame(1),
 	m_gravitySpeed(0)
 
@@ -116,26 +117,26 @@ void enemyHard::update()
 	}
 	if (m_EnemyFlame == 0)
 	{
-		if (m_MoveTime >= 10)
+		if (m_MoveTime >= kMovetime)
 		{
-			m_MoveTime = 10;
+			m_MoveTime = kMovetime;
 			m_Flame *= -1;
 		}
 
-		if (m_MoveTime <= -10)
+		if (m_MoveTime <= -kMovetime)
 		{
-			m_MoveTime = -10;
+			m_MoveTime = -kMovetime;
 			m_Flame *= -1;
 		}
 
-		if (m_MoveTime > 0 && m_MoveTime <= 10)
+		if (m_MoveTime > 0 && m_MoveTime <= kMovetime)
 		{
 			m_gravitySpeed += kMovewave;
 			m_pos.x += m_gravitySpeed;
 			m_pos.y += m_gravitySpeed;
 		}
 
-		if (m_MoveTime < 0 && m_MoveTime >= -10)
+		if (m_MoveTime < 0 && m_MoveTime >= -kMovetime)
 		{
 			m_gravitySpeed -= kMovewave;
 			m_pos.x += m_gravitySpeed;

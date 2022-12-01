@@ -25,24 +25,29 @@ SceneBase* SceneSelection::update()
 
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-	if (m_SetLevel > 0 && m_SetLevel < 4)
+	/*if (m_SetLevel > 0 && m_SetLevel < 4)
 	{
 		return (new SceneMain);
-	}
+	}*/
 
 	if (GetMouseInput() && MOUSE_INPUT_LEFT && HitStringEasy())
 	{
 		m_SetLevel = 1;
 		// Main‚ÉØ‚è‘Ö‚¦
-	/*	return (new SceneMain);*/
+		SceneMain* a = (new SceneMain);
+		a->setLevel(m_SetLevel);
 
+		return a;
 	}
 
 	if (GetMouseInput() && MOUSE_INPUT_LEFT && HitStringNormal())
 	{
 		m_SetLevel = 2;
 		// Main‚ÉØ‚è‘Ö‚¦
-	/*	return (new SceneMain);*/
+		SceneMain* a = (new SceneMain);
+		a->setLevel(m_SetLevel);
+
+		return a;
 
 	}
 
@@ -50,7 +55,10 @@ SceneBase* SceneSelection::update()
 	{
 		m_SetLevel = 3;
 		// Main‚ÉØ‚è‘Ö‚¦
-	/*	return (new SceneMain);*/
+		SceneMain* a = (new SceneMain);
+		a->setLevel(m_SetLevel);
+
+		return a;
 
 	}
 	return this;

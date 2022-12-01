@@ -17,6 +17,8 @@ public:
 
 	virtual void setHandle(int Graph) { m_hGraph = Graph; }
 
+	virtual void setDeadHandle(int DeadGraph) { m_hdeadGraph = DeadGraph; }
+
 	// ë∂ç›ämîF
 	virtual bool isExist() const { return m_isExist; }
 	virtual void setExist(bool isExist) { m_isExist = isExist; }
@@ -28,6 +30,7 @@ public:
 
 protected:
 	int m_hGraph;
+	int m_hdeadGraph;
 
 	// ë∂ç›Ç∑ÇÈÇ©
 	bool m_isExist;

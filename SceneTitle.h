@@ -4,6 +4,9 @@
 class SceneTitle : public SceneBase
 {
 public:
+//	constexpr int kMouseSize = 134;
+
+public:
 	SceneTitle()
 	{
 		m_textPosY = 0;

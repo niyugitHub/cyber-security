@@ -100,6 +100,11 @@ void SceneTitle::draw()
 
 
 	DrawGraph(static_cast<int>(Mouse::getPos().x), static_cast<int>(Mouse::getPos().y), m_handle, true);
+	//DrawBox(static_cast<int>(Mouse::getPos().x), static_cast<int>(Mouse::getPos().y),
+	//	Mause::kMouseSize, int y2,
+	//	unsigned int Color, int FillFlag);
+
+
 
 #if false
 	// randcolor‚Ì’l‚Ì•\Ž¦
