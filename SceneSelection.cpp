@@ -15,8 +15,6 @@ namespace
 void SceneSelection::init()
 {
 	m_textSize = 50;
-
-	m_handleCar = LoadGraph("data/enemy.png");
 }
 
 SceneBase* SceneSelection::update()

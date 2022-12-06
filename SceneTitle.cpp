@@ -5,13 +5,6 @@
 #include "SceneExplanation.h"
 #include"game.h"
 
-namespace
-{
-	constexpr int kStringDisplayX = Game::kScreenWidth / 2 - 500 / 2;
-	constexpr int kStringDisplayY = Game::kScreenHeight / 2;
-}
-
-
 void SceneTitle::init()
 {
 //	m_RandColor = 0;
@@ -56,9 +49,9 @@ SceneBase* SceneTitle::update()
 void SceneTitle::draw()
 {
 	SetFontSize(50);
-	DrawString(kStringDisplayX, kStringDisplayY - 200, "ウイルスバスターズ！", GetColor(0, 255, 0));
-	DrawString(kStringDisplayX, kStringDisplayY - 100, "ゲームスタート", GetColor(0, 255, 0));
-	DrawString(kStringDisplayX, kStringDisplayY , "あそびかた", GetColor(0, 255, 0));
+	DrawString(150, 200, "ウイルスバスターズ！", GetColor(0, 255, 0));
+	DrawString(150, 450, "ゲームスタート", GetColor(0, 255, 0));
+	DrawString(150, 550, "あそびかた", GetColor(0, 255, 0));
 
 	/*if (Mouse::getPos().x > kStringDisplayX &&
 		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
@@ -91,15 +84,15 @@ void SceneTitle::draw()
 	}*/
 	if (HitString2())
 	{
-		DrawString(kStringDisplayX, kStringDisplayY - 100, "ゲームスタート", GetColor(255, 255, 255));
+		DrawString(150, 450, "ゲームスタート", GetColor(255, 255, 255));
 	}
 	if (HitString3())
 	{
-		DrawString(kStringDisplayX, kStringDisplayY, "あそびかた", GetColor(255, 255, 255));
+		DrawString(150, 550, "あそびかた", GetColor(255, 255, 255));
 	}
 
 
-	DrawGraph(static_cast<int>(Mouse::getPos().x), static_cast<int>(Mouse::getPos().y), m_handle, true);
+	DrawGraph(0,0, m_handle, true);
 	//DrawBox(static_cast<int>(Mouse::getPos().x), static_cast<int>(Mouse::getPos().y),
 	//	Mause::kMouseSize, int y2,
 	//	unsigned int Color, int FillFlag);
@@ -112,26 +105,13 @@ void SceneTitle::draw()
 #endif
 }
 
-bool SceneTitle::HitString1()
-{
-	if (Mouse::getPos().x > kStringDisplayX &&
-		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
-	{
-		if (Mouse::getPos().y < kStringDisplayY - 150 &&
-			Mouse::getPos().y > kStringDisplayY - 200)
-		{
-			return true;		
-		}
-	}
-	return false;
-}
 bool SceneTitle::HitString2()
 {
-	if (Mouse::getPos().x > kStringDisplayX &&
-		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
+	if (Mouse::getPos().x > 150 &&
+		Mouse::getPos().x < 150 + m_textSize * 7)
 	{
-		if (Mouse::getPos().y < kStringDisplayY - 50 &&
-			Mouse::getPos().y > kStringDisplayY - 100)
+		if (Mouse::getPos().y > 450 &&
+			Mouse::getPos().y < 500)
 		{
 			return true;
 		}
@@ -140,11 +120,11 @@ bool SceneTitle::HitString2()
 }
 bool SceneTitle::HitString3()
 {
-	if (Mouse::getPos().x > kStringDisplayX &&
-		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
+	if (Mouse::getPos().x > 150 &&
+		Mouse::getPos().x < 150 + m_textSize * 5)
 	{
-		if (Mouse::getPos().y < kStringDisplayY + 50 &&
-			Mouse::getPos().y > kStringDisplayY)
+		if (Mouse::getPos().y > 550 &&
+			Mouse::getPos().y < 600)
 		{
 			return true;
 		}

@@ -22,6 +22,8 @@ public:
 
 	void setLevel(int level) { m_Level = level; }
 
+	bool ColEnemyPlayer();
+
 
 
 	Vec2 setPos();

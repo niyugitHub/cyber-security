@@ -37,7 +37,6 @@ SceneMain::SceneMain() :
 	m_pos(),
 	m_hEnemy(-1),
 	m_hDeadEnemy(-1),
-	m_hMouse(-1),
 	m_waitFrame(0),
 	m_enemyNum(0),
 	m_fadeout(kGraphNum, 0),
@@ -119,6 +118,15 @@ SceneBase* SceneMain::update()
 
 	if(m_Endtime < kEndtimeFlame)
 	{
+		if (ColEnemyPlayer())
+		{
+			DxLib_End();
+		}
+
+		if (m_Endtime > kEndtimeFlame)
+		{
+			DxLib_End();
+		}
 
 		for (int i = 0; i < kGraphNum; i++)
 		{
@@ -220,13 +228,6 @@ void SceneMain::draw()
 	}
 
 	DrawGraph(Game::kScreenWidth / 2 - 75, Game::kScreenHeight / 2 - 75, m_hPlayer, true);
-
-	DrawGraph(Mouse::getPos().x, Mouse::getPos().y, m_hMouse, true);
-
-	if (m_Endtime > kEndtimeFlame)
-	{
-		DxLib_End();
-	}
 }
 
 Vec2 SceneMain::setPos()
@@ -264,4 +265,24 @@ Vec2 SceneMain::setPos()
 
 	Vec2 RandAppear(RandAppearX, RandAppearY);
 	return RandAppear;
+}
+
+bool SceneMain::ColEnemyPlayer()
+{
+	int PlayerLeft = Game::kScreenWidth / 2 - 75;
+	int PlayerRight = Game::kScreenWidth / 2 + 75;
+	int PlayerTop = Game::kScreenHeight / 2 - 75;
+	int PlayerBottom = Game::kScreenHeight / 2 + 75;
+	for (auto& pGraph : m_Graph)
+	{
+		int a = pGraph->GetPos().x;
+
+		if (PlayerLeft > pGraph->GetPos().x + 75) continue;
+		if (PlayerRight < pGraph->GetPos().x + 75) continue;
+		if (PlayerTop > pGraph->GetPos().y + 75) continue;
+		if (PlayerBottom < pGraph->GetPos().y + 75)continue;
+
+		return true;
+	}
+	return false;
 }

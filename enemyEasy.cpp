@@ -132,6 +132,7 @@ void enemyEasy::draw()
 			1.0f, m_rot,
 			m_hdeadGraph, true, false);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 		m_fadeValue -= 3;
 	}
 
@@ -169,6 +170,8 @@ bool enemyEasy::isHitEnable(Vec2 pos)
 
 	// 中心からマウスカーソル位置までの距離を調べる
 	Vec2 toMouse = pos - m_pos;
+	toMouse.x = toMouse.x - 50;
+	toMouse.y = toMouse.y - 50;
 	if (toMouse.length() < kEnemySize)
 	{
 		return true;

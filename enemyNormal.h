@@ -22,10 +22,10 @@ public:
 
 	virtual void setDeadHandle(int DeadGraph) { m_hdeadGraph = DeadGraph; }
 
-	virtual void getPos(Vec2 pos) { m_pos = pos; }
-
 	virtual void update();
 	virtual void draw();
+
+	virtual Vec2 GetPos() { return m_pos; }
 
 	// ë∂ç›ämîF
 	bool isExist() const { return m_isExist; }

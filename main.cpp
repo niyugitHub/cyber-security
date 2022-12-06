@@ -28,6 +28,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// ‰æ–Ê‚ÌƒNƒŠƒA
 		ClearDrawScreen();
 
+		SetMouseDispFlag(1);
+
 		scene.update();
 		scene.draw();
 

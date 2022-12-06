@@ -32,10 +32,10 @@ public:
 	virtual bool isDead() const { return m_isDead; }
 	virtual void setDead(bool isDead) { m_isDead = isDead; }
 
-	//bool isHitEnable(Vec2 pos);	// —LŒø‚©‚Ç‚¤‚©
-
 	virtual void update() {}
 	virtual void draw() {}
+
+	virtual Vec2 GetPos() { return m_pos; }
 
 protected:
 	int m_hGraph;

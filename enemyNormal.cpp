@@ -7,7 +7,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 4.0f;
+	constexpr float kSpeed = 3.5f;
 
 	// 中心座標を設定
 	constexpr int CentorX = static_cast<float>(Game::kScreenWidth / 2) - 50;
@@ -168,6 +168,8 @@ bool enemyNormal::isHitEnable(Vec2 pos)
 
 	// 中心からマウスカーソル位置までの距離を調べる
 	Vec2 toMouse = pos - m_pos;
+	toMouse.x = toMouse.x - 50;
+	toMouse.y = toMouse.y - 50;
 	if (toMouse.length() < kEnemySize)
 	{
 		return true;
