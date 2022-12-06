@@ -32,7 +32,7 @@ enemyEasy::enemyEasy() :
 	m_rot(),
 	m_IsPressMouse(false),
 	m_IsPressedMouse(false),
-	m_EnemyFlame(GetRand(1500) + 50),
+	m_EnemyFlame(GetRand(2000) + 50),
 	m_ExtRate(1.0f),
 	// Šg‘å—¦‚Ì•Ï‰»
 	m_Expansion(0.01f),
@@ -127,12 +127,12 @@ void enemyEasy::draw()
 	}
 	else if(m_isDead)
 	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeValue);
 		DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
 			1.0f, m_rot,
 			m_hdeadGraph, true, false);
-	//	DrawRotaGraph(320, 240, 0.3, 0.0, m_deadGraph, true);
-	//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeValue);
-		m_fadeValue--;
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		m_fadeValue -= 3;
 	}
 
 	if (m_ExtRate < 0.85f)

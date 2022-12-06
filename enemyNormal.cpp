@@ -24,21 +24,21 @@ namespace
 
 enemyNormal::enemyNormal() :
 	m_hGraph(-1),
-	m_isExist(false),
+	m_hdeadGraph(-1),
+	m_isExist(true),
 	m_pos(),
 	m_vec(3, 3),
-	m_NormalizeX(),
-	m_NormalizeY(),
 	m_click(),
 	m_rot(),
 	m_IsPressMouse(false),
 	m_IsPressedMouse(false),
-	m_EnemyFlame(GetRand(1200) + 50),
+	m_EnemyFlame(GetRand(1600) + 50),
 	m_ExtRate(1.0f),
 	// ägëÂó¶ÇÃïœâª
 	m_Expansion(0.01f),
 	// ägëÂorèkè¨ÇÃÇ∆Ç´10fé~ÇﬂÇÈ
-	m_StopFlame(50)
+	m_StopFlame(50),
+	m_fadeValue(255)
 {
 }
 enemyNormal::~enemyNormal()
@@ -126,11 +126,12 @@ void enemyNormal::draw()
 	}
 	else if (m_isDead)
 	{
-		DrawGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
-			m_hdeadGraph, true);
-		//	DrawRotaGraph(320, 240, 0.3, 0.0, m_deadGraph, true);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeValue);
-		m_fadeValue--;
+		DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
+			1.0f, m_rot,
+			m_hdeadGraph, true, false);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		m_fadeValue -= 3;
 	}
 
 	if (m_ExtRate < 0.85f)

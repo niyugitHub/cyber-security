@@ -9,7 +9,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 5.0f;
+	constexpr float kSpeed = 4.0f;
 
 	// 中心座標を設定
 	constexpr int CentorX = static_cast<float>(Game::kScreenWidth / 2) - 50;
@@ -29,14 +29,15 @@ namespace
 
 enemyHard::enemyHard() :
 	m_hGraph(-1),
-	m_isExist(false),
+	m_hdeadGraph(-1),
+	m_isExist(true),
 	m_pos(),
 	m_vec(3, 3),
 	m_click(),
 	m_rot(),
 	m_IsPressMouse(false),
 	m_IsPressedMouse(false),
-	m_EnemyFlame(GetRand(1200) + 50),
+	m_EnemyFlame(GetRand(1400) + 50),
 	m_ExtRate(1.0f),
 	// 拡大率の変化
 	m_Expansion(0.01f),
@@ -44,7 +45,8 @@ enemyHard::enemyHard() :
 	m_StopFlame(50),
 	m_MoveTime(-kMovetime),
 	m_Flame(1),
-	m_gravitySpeed(0)
+	m_gravitySpeed(0),
+	m_fadeValue(255)
 
 {
 }
@@ -162,11 +164,12 @@ void enemyHard::draw()
 	}
 	else if (m_isDead)
 	{
-		DrawGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
-			m_hdeadGraph, true);
-		//	DrawRotaGraph(320, 240, 0.3, 0.0, m_deadGraph, true);
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeValue);
-		m_fadeValue--;
+		DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
+			1.0f, m_rot,
+			m_hdeadGraph, true, false);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		m_fadeValue -= 3;
 	}
 
 	if (m_ExtRate < 0.85f)

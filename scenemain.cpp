@@ -152,7 +152,6 @@ SceneBase* SceneMain::update()
 
 					m_Graph[i]->setHandle(m_hEnemy);
 					m_Graph[i]->setExist(true);
-		//			m_Graph[i]->setDead(false);
 					m_Graph[i]->setDeadHandle(m_hDeadEnemy);
 
 					Vec2 pos = setPos();
@@ -168,7 +167,7 @@ SceneBase* SceneMain::update()
 
 					m_Graph[i]->setHandle(m_hEnemy);
 					m_Graph[i]->setExist(true);
-					m_Graph[i]->setDead(false);
+					m_Graph[i]->setDeadHandle(m_hDeadEnemy);
 
 					Vec2 pos = setPos();
 					m_Graph[i]->setPos(pos);
@@ -183,7 +182,7 @@ SceneBase* SceneMain::update()
 
 					m_Graph[i]->setHandle(m_hEnemy);
 					m_Graph[i]->setExist(true);
-					m_Graph[i]->setDead(false);
+					m_Graph[i]->setDeadHandle(m_hDeadEnemy);
 
 					Vec2 pos = setPos();
 					m_Graph[i]->setPos(pos);
