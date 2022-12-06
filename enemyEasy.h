@@ -32,6 +32,10 @@ public:
 	bool isExist() const { return m_isExist; }
 	void setExist(bool isExist) { m_isExist = isExist; }
 
+	// 死亡確認
+	bool isDead() const { return m_isDead; }
+	void setDead(bool isDead) { m_isDead = isDead; }
+
 	bool isHitEnable(Vec2 pos);	// 有効かどうか
 
 private:
@@ -40,6 +44,9 @@ private:
 
 	// 存在するか
 	bool m_isExist;
+
+	////生存確認
+	//bool m_isDead;
 
 	Vec2 m_pos;
 	Vec2 m_vec;

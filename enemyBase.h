@@ -6,7 +6,12 @@
 class enemyBase
 {
 public:
-	enemyBase(){}
+	enemyBase() : 
+	m_hGraph(-1),
+	m_hdeadGraph(-1),
+	m_isExist(false),
+	m_isDead(false)
+	{}
 	virtual ~enemyBase() {}
 
 
@@ -23,6 +28,10 @@ public:
 	virtual bool isExist() const { return m_isExist; }
 	virtual void setExist(bool isExist) { m_isExist = isExist; }
 
+	// 死亡確認
+	virtual bool isDead() const { return m_isDead; }
+	virtual void setDead(bool isDead) { m_isDead = isDead; }
+
 	//bool isHitEnable(Vec2 pos);	// 有効かどうか
 
 	virtual void update() {}
@@ -32,24 +41,16 @@ protected:
 	int m_hGraph;
 	int m_hdeadGraph;
 
+	// フェードイン
+	int m_fadeValue;
+
 	// 存在するか
 	bool m_isExist;
 
+	//生存確認
+	bool m_isDead;
+
 	Vec2 m_pos;
 	Vec2 m_vec;
-
-	//int m_click;
-
-	//// 回転表示
-	//float m_rot;
-
-	//bool m_IsPressMouse;		// マウスボタンが押された瞬間だけtrueになるフラグ
-	//bool m_IsPressedMouse;	// マウスボタンが押されてフラグがtrueになったことがあるか
-
-	//int m_EnemyFlame;	// enemyの出現をランダムに
-
-	//float m_ExtRate;
-	//float m_Expansion;
-	//int m_StopFlame;
 };
 

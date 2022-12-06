@@ -118,11 +118,20 @@ void enemyNormal::draw()
 
 	GetGraphSize(m_hGraph, &width, &height);
 
-
-
-	DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
-		m_ExtRate, m_rot,
-		m_hGraph, true, false);
+	if (!m_isDead)
+	{
+		DrawRotaGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
+			m_ExtRate, m_rot,
+			m_hGraph, true, false);
+	}
+	else if (m_isDead)
+	{
+		DrawGraph(static_cast<int>(m_pos.x) + width / 2, static_cast<int>(m_pos.y) + height / 2,
+			m_hdeadGraph, true);
+		//	DrawRotaGraph(320, 240, 0.3, 0.0, m_deadGraph, true);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeValue);
+		m_fadeValue--;
+	}
 
 	if (m_ExtRate < 0.85f)
 	{
@@ -147,6 +156,8 @@ void enemyNormal::draw()
 	{
 		m_ExtRate -= m_Expansion;
 	}
+
+	//assert(m_hGraph < -1);
 }
 
 bool enemyNormal::isHitEnable(Vec2 pos)

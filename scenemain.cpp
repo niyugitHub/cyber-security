@@ -27,7 +27,7 @@ namespace
 	constexpr int  kEnemyFlame = 50;
 
 	// I—¹ŽžŠÔ
-	constexpr int kEndtimeFlame = 1800;
+	constexpr int kEndtimeFlame = 18000;
 }
 
 SceneMain::SceneMain() :
@@ -40,6 +40,7 @@ SceneMain::SceneMain() :
 	m_hMouse(-1),
 	m_waitFrame(0),
 	m_enemyNum(0),
+	m_fadeout(kGraphNum, 0),
 	m_Endtime(0),
 	m_Level(0)
 {
@@ -130,8 +131,12 @@ SceneBase* SceneMain::update()
 
 				else if (!m_Graph[i]->isExist())
 				{
-					delete m_Graph[i];
-					m_Graph[i] = nullptr;
+					if (m_fadeout[i] >= 255)
+					{
+						delete m_Graph[i];
+						m_Graph[i] = nullptr;
+						m_fadeout[i] = 0;
+					}
 				}
 
 			}
@@ -147,6 +152,8 @@ SceneBase* SceneMain::update()
 
 					m_Graph[i]->setHandle(m_hEnemy);
 					m_Graph[i]->setExist(true);
+		//			m_Graph[i]->setDead(false);
+					m_Graph[i]->setDeadHandle(m_hDeadEnemy);
 
 					Vec2 pos = setPos();
 					m_Graph[i]->setPos(pos);
@@ -161,6 +168,7 @@ SceneBase* SceneMain::update()
 
 					m_Graph[i]->setHandle(m_hEnemy);
 					m_Graph[i]->setExist(true);
+					m_Graph[i]->setDead(false);
 
 					Vec2 pos = setPos();
 					m_Graph[i]->setPos(pos);
@@ -175,6 +183,7 @@ SceneBase* SceneMain::update()
 
 					m_Graph[i]->setHandle(m_hEnemy);
 					m_Graph[i]->setExist(true);
+					m_Graph[i]->setDead(false);
 
 					Vec2 pos = setPos();
 					m_Graph[i]->setPos(pos);
@@ -197,12 +206,18 @@ SceneBase* SceneMain::update()
 
 void SceneMain::draw()
 {
-	for (auto& pGraph : m_Graph)
+	for (int i = 0; i < kGraphNum; i++)
 	{
-		if (pGraph->isExist())
+		if (!m_Graph[i]->isExist())
+			{
+			m_Graph[i]->setDead(true);
+				m_fadeout[i] += 3;
+			}
+		if (m_Graph[i]->isExist())
 		{
-			pGraph->draw();
+			m_Graph[i]->setDead(false);
 		}
+		m_Graph[i]->draw();
 	}
 
 	DrawGraph(Game::kScreenWidth / 2 - 75, Game::kScreenHeight / 2 - 75, m_hPlayer, true);

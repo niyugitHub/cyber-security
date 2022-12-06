@@ -32,6 +32,7 @@ private:
 	int m_hMouse;
 	int m_waitFrame;
 	int m_enemyNum;
+	std::vector<int>m_fadeout;
 
 	int m_hPlayer;
 	int m_hDeadPlayer;
