@@ -27,7 +27,7 @@ namespace
 	constexpr int  kEnemyFlame = 50;
 
 	// 終了時間
-	constexpr int kEndtimeFlame = 18000;
+	constexpr int kEndtimeFlame = 1800;
 }
 
 SceneMain::SceneMain() :
@@ -41,7 +41,8 @@ SceneMain::SceneMain() :
 	m_enemyNum(0),
 	m_fadeout(kGraphNum, 0),
 	m_Endtime(0),
-	m_Level(0)
+	m_Level(0),
+	m_End(false)
 {
 
 	
@@ -107,26 +108,70 @@ void SceneMain::end()
 
 SceneBase* SceneMain::update()
 {
-	/*if (m_waitFrame < kEnemyFlame)
+	if (m_Endtime > kEndtimeFlame)
+	{
+		m_End = true;
+		SetFontSize(50);
+		DrawString(Game::kScreenWidth / 2 - 200, Game::kScreenHeight / 2 - 100, "ウイルス感染を防いだ！", GetColor(255, 255, 0));
+		if (StringTitle())
 		{
-			m_waitFrame++;
-			return;
-		}*/
+			DrawString(Game::kScreenWidth / 2 - 200, Game::kScreenHeight / 2, "タイトルへ戻る", GetColor(255, 255, 255));
+			if (GetMouseInput())
+			{
+				for (auto& pGraph : m_Graph)
+				{
+					if (pGraph != nullptr)
+					{
+						delete pGraph;
+						pGraph = nullptr;
+						ClearDrawScreen();
+					}
+				}
+
+				return (new SceneTitle);
+			}
+		}
+		else
+		{
+			DrawString(Game::kScreenWidth / 2 - 200, Game::kScreenHeight / 2, "タイトルへ戻る", GetColor(255, 255, 0));
+		}
+	}
 	m_Endtime++;
 	
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-	if(m_Endtime < kEndtimeFlame)
+	if (ColEnemyPlayer())
 	{
-		if (ColEnemyPlayer())
+		m_End = true;
+		SetFontSize(50);
+		DrawString(Game::kScreenWidth / 2 - 200, Game::kScreenHeight / 2 - 100, "ウイルスに感染してしまった", GetColor(255, 255, 0));
+		if (StringTitle())
 		{
-			DxLib_End();
-		}
+			DrawString(Game::kScreenWidth / 2 - 200, Game::kScreenHeight / 2, "タイトルへ戻る", GetColor(255, 255, 255));
+			if (GetMouseInput())
+			{
+				for (auto& pGraph : m_Graph)
+				{
+					if (pGraph != nullptr)
+					{
+						delete pGraph;
+						pGraph = nullptr;
+						ClearDrawScreen();
+					}
+				}
 
-		if (m_Endtime > kEndtimeFlame)
-		{
-			DxLib_End();
+				return (new SceneTitle);
+			}
 		}
+		else
+		{
+			DrawString(Game::kScreenWidth / 2 - 200, Game::kScreenHeight / 2, "タイトルへ戻る", GetColor(255, 255, 0));
+		}
+	}
+
+	if(!m_End)
+	{
+
 
 		for (int i = 0; i < kGraphNum; i++)
 		{
@@ -213,21 +258,25 @@ SceneBase* SceneMain::update()
 
 void SceneMain::draw()
 {
-	for (int i = 0; i < kGraphNum; i++)
+	if(!m_End)
 	{
-		if (!m_Graph[i]->isExist())
-			{
-			m_Graph[i]->setDead(true);
-				m_fadeout[i] += 3;
-			}
-		if (m_Graph[i]->isExist())
+		for (int i = 0; i < kGraphNum; i++)
 		{
-			m_Graph[i]->setDead(false);
+			if (!m_Graph[i]->isExist())
+				{
+				m_Graph[i]->setDead(true);
+					m_fadeout[i] += 3;
+				}
+			if (m_Graph[i]->isExist())
+			{
+				m_Graph[i]->setDead(false);
+			}
+			m_Graph[i]->draw();
+		
 		}
-		m_Graph[i]->draw();
-	}
 
-	DrawGraph(Game::kScreenWidth / 2 - 75, Game::kScreenHeight / 2 - 75, m_hPlayer, true);
+		DrawGraph(Game::kScreenWidth / 2 - 75, Game::kScreenHeight / 2 - 75, m_hPlayer, true);
+	}
 }
 
 Vec2 SceneMain::setPos()
@@ -284,5 +333,20 @@ bool SceneMain::ColEnemyPlayer()
 
 		return true;
 	}
+	return false;
+}
+
+bool SceneMain::StringTitle()
+{
+	if (Mouse::getPos().x > Game::kScreenWidth / 2 - 200 &&
+		Mouse::getPos().x < Game::kScreenWidth / 2 + 150)
+	{
+		if (Mouse::getPos().y > Game::kScreenHeight / 2 &&
+			Mouse::getPos().y < Game::kScreenHeight / 2 + 50)
+		{
+			return true;
+		}
+	}
+	return false;
 	return false;
 }

@@ -24,14 +24,14 @@ public:
 
 	bool ColEnemyPlayer();
 
-
+	bool StringTitle();
 
 	Vec2 setPos();
 
 private:
 	int m_hEnemy;
 	int m_hDeadEnemy;
-	int m_hMouse;
+	int m_hMouse;;
 	int m_waitFrame;
 	int m_enemyNum;
 	std::vector<int>m_fadeout;
@@ -46,6 +46,8 @@ private:
 
 	// “ïˆÕ“xİ’è
 	int m_Level;
+
+	bool m_End;
 
 	//Vec2 Mouse::getPos();
 	std::vector<enemyBase*> m_Graph;

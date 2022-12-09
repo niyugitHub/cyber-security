@@ -20,7 +20,7 @@ void SceneExplanation::init()
 	m_handleNum = 0;
 	
 	// ‰æ‘œ‚Ìƒ[ƒh
-	m_handle[0] = LoadGraph("data/enemy.png");
+	m_handle[0] = LoadGraph("data/scene1.png");
 	m_handle[1] = LoadGraph("data/sumaho1.png");
 	m_handle[2] = LoadGraph("data/sumaho3.png");
 	m_handle[3] = LoadGraph("data/enemy.png");

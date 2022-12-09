@@ -5,12 +5,23 @@
 #include "SceneExplanation.h"
 #include"game.h"
 
+namespace
+{
+	// 拡大or縮小のとき10f止める
+	constexpr int kWaitFlame = 25;
+}
+
 void SceneTitle::init()
 {
 //	m_RandColor = 0;
 	m_handle = LoadGraph("data/enemy.png");
 	m_isEnd = false;
 	m_textSize = 50;
+	m_speed = 5.0f;
+	m_Gravity = 0.3f;
+	m_ExtRate = 2.0f;
+	m_Expansion = 0.01f;
+	m_StopFlame = 50;
 }
 
 SceneBase* SceneTitle::update()
@@ -31,18 +42,55 @@ SceneBase* SceneTitle::update()
 		// Mainに切り替え
 		return (new SceneExplanation);
 	}
-	//if (padState & PAD_INPUT_1)
-	//{
-	//	// Mainに切り替え
-	//	return (new SceneMain);
-	//}
 	
-	//if (m_RandColor < 200)
-	//{
-	//	m_RandColor++;
-	//}
+	if (m_pos.x < Game::kScreenWidth / 2)
+	{
+		m_Gravity = 0.3f;
+	}
 
-	//m_RandColor++;
+	if (m_pos.x > Game::kScreenWidth - 350)
+	{
+		m_Gravity = -0.3f;
+	}
+
+	if (m_speed < -5.0f)
+	{
+		m_speed = -5.0f;
+	}
+
+	if (m_speed > 5.0f)
+	{
+		m_speed = 5.0f;
+	}
+
+	m_speed += m_Gravity;
+	m_pos.x += m_speed;
+	m_rot += 0.05f;
+
+	if (m_ExtRate < 1.55f)
+	{
+		m_ExtRate = 1.55f;
+		m_Expansion *= -1;
+		m_StopFlame = 0;
+	}
+
+	if (m_ExtRate > 2.15f)
+	{
+		m_ExtRate = 2.15f;
+		m_Expansion *= -1;
+		m_StopFlame = 0;
+	}
+
+	if (m_StopFlame <= kWaitFlame)
+	{
+		m_StopFlame++;
+	}
+
+	if (m_StopFlame >= kWaitFlame)
+	{
+		m_ExtRate -= m_Expansion;
+	}
+
 	return this;
 }
 
@@ -53,35 +101,6 @@ void SceneTitle::draw()
 	DrawString(150, 450, "ゲームスタート", GetColor(0, 255, 0));
 	DrawString(150, 550, "あそびかた", GetColor(0, 255, 0));
 
-	/*if (Mouse::getPos().x > kStringDisplayX &&
-		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
-	{
-		if (Mouse::getPos().y < kStringDisplayY -150 &&
-			Mouse::getPos().y > kStringDisplayY - 200)
-		{
-			DrawString(kStringDisplayX, kStringDisplayY - 200, "ウイルスバスターズ！", GetColor(255, 255, 255));
-		}
-	}*/
-
-	/*if (Mouse::getPos().x > kStringDisplayX &&
-		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
-	{
-		if (Mouse::getPos().y < kStringDisplayY - 50 &&
-			Mouse::getPos().y > kStringDisplayY - 100)
-		{
-			DrawString(kStringDisplayX, kStringDisplayY - 100, "ゲームスタート", GetColor(255, 255, 255));
-		}
-	}*/
-
-	/*if (Mouse::getPos().x > kStringDisplayX &&
-		Mouse::getPos().x < kStringDisplayX + m_textSize * 10)
-	{
-		if (Mouse::getPos().y < kStringDisplayY + 50 &&
-			Mouse::getPos().y > kStringDisplayY)
-		{
-			DrawString(kStringDisplayX, kStringDisplayY, "あそびかた", GetColor(255, 255, 255));
-		}
-	}*/
 	if (HitString2())
 	{
 		DrawString(150, 450, "ゲームスタート", GetColor(255, 255, 255));
@@ -92,7 +111,8 @@ void SceneTitle::draw()
 	}
 
 
-	DrawGraph(0,0, m_handle, true);
+	DrawRotaGraph(m_pos.x, m_pos.y, m_ExtRate, m_rot,
+		m_handle, true, false);
 	//DrawBox(static_cast<int>(Mouse::getPos().x), static_cast<int>(Mouse::getPos().y),
 	//	Mause::kMouseSize, int y2,
 	//	unsigned int Color, int FillFlag);
