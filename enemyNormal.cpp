@@ -7,7 +7,7 @@
 namespace
 {
 	// 敵のスピードを設定
-	constexpr float kSpeed = 3.5f;
+	constexpr float kSpeed = 4.0f;
 
 	// 中心座標を設定
 	constexpr int CentorX = static_cast<float>(Game::kScreenWidth / 2) - 50;
